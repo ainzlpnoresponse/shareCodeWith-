@@ -1,0 +1,90 @@
+#include <iostream>
+
+using namespace std;
+
+class Logbook {
+    private:
+        int logMonth; // Month for the logbook
+        int logYear; // Year for the logbook
+        int entries[31]; // Daily entries for the logbook
+    public:
+        Logbook(int month, int year); // Create a logbook for the specified year and month
+        void putEntry(int day, int value); // Add the specified value into the existing entry for the specified day (ranges between 1 and the number of days in the year and month kept in this logbook)
+        int getEntry(int day) const; // Return entry for day
+        int getMonth() const; // Return the month
+        int getYear() const; // Return the year
+        int getDaysInMonth() const; // Number of days in month
+        void displayCalendar() const; // Output the monthly entries in calendar form
+        int operator [](int day) const; // Returns the logbook entry for the specified day
+        void operator += (const Logbook &rightLogbook); // Adds logbooks cover the same month
+
+    private:
+        // Helper functions
+        bool isLeapYear() const; // Check if the year is leap year
+        int getDayOfWeek(int day) const; // On which day of the week the first day of the month occurs
+}
+
+
+
+int main()
+{
+    cout << "Hello world!" << endl;
+    return 0;
+}
+
+
+Logbook::Logbook(int month, int year){
+    logMonth = month;
+    logYear = year;
+}
+int Logbook::getDaysInMonth(){
+    int MonthDay[]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+    int y,m;
+    y = getYear();
+    if ()MonthDay[2]=29;
+    if (m<1 || m >12)m=0;
+    returm MonthDay[getMonth()];
+
+}
+int Logbook::getMonth()const{
+    return logMonth;
+}
+int Logbook::getYear()const{
+    return logYear;
+}
+
+void Logbook::putEntry(int day, int value)const{
+
+    entries[day] = value;
+
+}
+int Logbook::getEntry(int day)const{
+
+    return entries[day];
+
+}
+int Logbook::operator [](int day) const{
+
+    return entries[day];
+
+}
+void Logbook::displayCalendar() const;
+
+void Logbook::operator += (const Logbook &rightLogbook)
+
+bool Logbook::isLeapYear() const{
+
+    int y = getYear();
+    if((y%4==0)&&(y%100!=0)||(y%400==0)){
+        return true;
+    }
+    else{
+        return false;
+    }
+
+}
+int Logbook::getDayOfWeek(int day) const;
+
+
+
+
