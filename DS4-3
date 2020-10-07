@@ -22,6 +22,8 @@ class Logbook {
         // Helper functions
         bool isLeapYear() const; // Check if the year is leap year
         int getDayOfWeek(int day) const; // On which day of the week the first day of the month occurs
+        int getDaysToMonth() const;
+        int getLeapYears()const;
 }
 
 
@@ -41,7 +43,7 @@ int Logbook::getDaysInMonth(){
     int MonthDay[]={0,31,28,31,30,31,30,31,31,30,31,30,31};
     int y,m;
     y = getYear();
-    if ()MonthDay[2]=29;
+    if (isLeapYear())MonthDay[2]=29;
     if (m<1 || m >12)m=0;
     returm MonthDay[getMonth()];
 
@@ -55,17 +57,17 @@ int Logbook::getYear()const{
 
 void Logbook::putEntry(int day, int value)const{
 
-    entries[day] = value;
+    entries[day-1] = value;
 
 }
 int Logbook::getEntry(int day)const{
 
-    return entries[day];
+    return entries[day-1];
 
 }
 int Logbook::operator [](int day) const{
 
-    return entries[day];
+    return entries[day-1];
 
 }
 void Logbook::displayCalendar() const;
@@ -83,8 +85,32 @@ bool Logbook::isLeapYear() const{
     }
 
 }
-int Logbook::getDayOfWeek(int day) const;
+int Logbook::getDayOfWeek(int day) const{
 
+    return (1 + n * getYear()+ n * getLeapYears() + getDaysToMonth() + day)%7
+
+}
+int Logbook::getDaysToMonth() const{
+
+
+    int month = getMonth(), year = getYear(), addDay = 0;;
+    int MonthDay[]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+    int y,m;
+    y = getYear();
+    if (isLeapYear())MonthDay[2]=29;
+    if (m<1 || m >12)m=0;
+    for(i = 1 ; i < month ; i++){
+        addDay += MonthDay[i];
+    }
+    return addDay;
+
+}
+int Logbook::getLeapYears()const{
+
+    for(int i = 0)
+
+
+}
 
 
 
