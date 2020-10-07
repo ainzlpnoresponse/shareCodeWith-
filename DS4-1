@@ -1,0 +1,95 @@
+#include<iostream>
+#include<bits/stdc++.h>
+#define SIZE 10
+using namespace std;
+void bubbleSort(int *array, int n)
+{
+
+    for(int k = 0; k < SIZE ; k++){//the number has been fixed
+        for(int i = SIZE-1; i >= k+1; i--){//"i" is where the right side of swapping machine at,
+            if(array[i] < array[i-1]){
+                swap(array[i],array[i-1]);
+            }
+        }
+    }
+}
+void selectionSort(int *array, int n)
+{
+    int position;
+
+    for(int k = 0; k < (SIZE-1) ; k++){//the number has been fixed
+        position = k;
+        for(int i = k+1; i < SIZE ; i++){//find the minimum number to swap
+            if(array[position] > array[i]){
+                position = i;
+            }
+        }
+        swap(array[position], array[k]);//fix the minimum
+
+    }
+
+}
+void insertionSort(int *array, int n)
+{
+    int i, key, j;
+    for (i = 1; i < n; i++)
+    {
+        key = array[i];
+        j = i - 1;
+
+        /* Move elements of arr[0..i-1], that are
+        greater than key, to one position ahead
+        of their current position */
+        while (j >= 0 && array[j] > key)
+        {
+            array[j + 1] = array[j];
+            j = j - 1;
+        }
+        array[j + 1] = key;
+    }
+}
+
+int main()
+{
+	int array[SIZE];
+	int j, k;
+	srand(time(NULL));
+	/*for(j = 0;j < SIZE;j ++)
+		array[j] = rand();
+
+	for(j = 0;j < SIZE;j ++)
+		printf("%d ", array[j]);
+	printf("\n");
+
+	bubbleSort(array, SIZE);
+
+	for(j = 0;j < SIZE;j ++)
+		printf("%d ", array[j]);
+	printf("\n");*/
+
+	for(j = 0;j < SIZE;j ++)
+		array[j] = rand();
+
+	for(j = 0;j < SIZE;j ++)
+		printf("%d ", array[j]);
+	printf("\n");
+
+	insertionSort(array, SIZE);
+
+	for(j = 0;j < SIZE;j ++)
+		printf("%d ", array[j]);
+	printf("\n");
+
+	/*for(j = 0;j < SIZE;j ++)
+		array[j] = rand();
+
+	for(j = 0;j < SIZE;j ++)
+		printf("%d ", array[j]);
+	printf("\n");
+
+	selectionSort(array, SIZE);
+
+	for(j = 0;j < SIZE;j ++)
+		printf("%d ", array[j]);
+	printf("\n");*/
+}
