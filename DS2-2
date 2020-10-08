@@ -1,41 +1,55 @@
 #include <iostream>
 #include <cstring>
 #define SIZE 100
+
 using namespace std;
+
+typedef struct Node{
+	int data;
+	Node *link;
+};
+
 class Stack
 {
 public:
-    Stack()
-    {
-        top = 0;
+	int temp;
+	int count = 0;
+    Stack() {
+    	top = NULL; //初始化
+    	count = 0;
     }
-    int push(int dat)
+    int push(int d)
     {
-        if(top<SIZE)
-        {
-            data[top]=dat;
-            top++;
-             return 1;
-        }
-       // if(top<SIZE)
-        else
+        if(count>=SIZE){  //overflow
             return -1;
+        }
+        else {
+            Node *ptr=new Node();  
+            ptr->data=d; //插入value到node的data 部分
+            ptr->link=top; //讓node的link部分等於top 
+            top=ptr; //讓ptr和top指向同一個地方
+            count ++;
+            return 1;
+        }
     }
     int *pop()
     {
-        // int *a= &data[top];
-        if(top==0)
-            return NULL;
-        else
-        {
-            top--;
-            return  &data[top];
+        if(top==NULL){
+            return NULL; //代表stack is emty 如果失敗就回傳 NULL
+        }
+        else{
+            Node *ptr=top; //讓top指向ptr指向的node
+            top=top->link;   //把top pointer移到llinked list裡的下個元素
+            temp = ptr->data; //把ptr指向的data給temp
+			delete(ptr);  //把ptr指向的node刪掉
+			count --; 
+			return &temp; //回傳temp指向的data
         }
     }
 private:
-    int data[SIZE];
-    int top;
+    Node *top;
 };
+
 int main()
 {
     int data, *temp;
@@ -46,7 +60,6 @@ int main()
         cin>>command;
         if(strcmp(command, "exit") == 0)
         {
-            cout<<"suck!!!!"<<endl;
             break;
         }
         else if(strcmp(command, "push") == 0)
