@@ -1,0 +1,100 @@
+#include <iostream>
+#include <cstring>
+#define SIZE 100
+
+using namespace std;
+
+class Queue
+{
+public:
+    Queue()
+    {
+        top = 0;
+        bot = -1;
+    }
+    int enqueue(int data)
+    {
+        if(bot == -1){//if the queue is empty, add the data on the bottom.
+            Queue::data[0] = data;
+            bot = 0;
+        }
+        else if((top+1) == SIZE && bot != 0){/*if the queue has been full before enqueue, but the space is still available,
+                                               add the data at first position*/
+            Queue::data[0] = data;
+            top = 0;
+
+        }
+        else if((top+1) != bot){//if the queue has space between top and bottom, add the data at the queue.
+            Queue::data[++top] = data;
+        }
+        else{
+            return 0;
+        }
+        return 1;
+    }
+    int *dequeue()
+    {
+        int tempBot;//the position of the element removed
+        if(bot == top){//if the queue become empty after dequeue, the queue will go back to original state
+            tempBot = bot;
+            top = 0;
+            bot = -1;
+        }
+        else if(bot == -1){//if no queue is empty, return error
+            return NULL;
+        }
+        else if((bot+1) == SIZE){//if bot reach the exit point of the queue, go back to the start point;
+            tempBot = bot;
+            bot = 0;
+        }
+        else if((bot+1) < SIZE){//if queue has not reach the exit point, just return the position.
+            tempBot = bot;
+            bot ++;
+
+        }
+        return &Queue::data[tempBot];
+    }
+private:
+    int data[SIZE];
+    int top, bot;
+};
+
+int main()
+{
+    int data, *temp;
+    char command[50];
+    Queue *queue = new Queue();
+    while(1)
+    {
+        cin>>command;
+        if(strcmp(command, "exit") == 0)
+        {
+            break;
+        }
+        else if(strcmp(command, "enqueue") == 0)
+        {
+            cout<<"Please input a integer data:";
+            cin>>data;
+            if(queue->enqueue(data) == 1)
+            {
+                cout<<"Successfully enqueue data "<<data<<" into queue."<<endl;
+            }
+            else
+            {
+                cout<<"Failed to enqueue data into queue."<<endl;
+            }
+        }
+        else if(strcmp(command, "dequeue") == 0)
+        {
+            temp = queue->dequeue();
+            if(temp == NULL)
+            {
+                cout<<"Failed to dequeue a data from queue.\n";
+            }
+            else
+            {
+                cout<<"Dequeue data "<<*temp<<" from queue."<<endl;
+            }
+        }
+    }
+}
